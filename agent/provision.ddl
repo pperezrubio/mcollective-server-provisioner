@@ -10,13 +10,21 @@ metadata :name => "Server Provisioning Agent",
 action "set_puppet_host", :description => "Update /etc/hosts with the master IP" do
 	display	:always
 
-    	input :ipaddress,
-              :prompt      => "Master IP Address",
-              :description => "IP Adress of the Puppet Master",
-              :type        => :string,
-              :validation  => '^\d+\.\d+\.\d+\.\d+$',
-              :optional    => false,
-              :maxlength   => 15
+    input :ipaddress,
+        :prompt      => "Master IP Address",
+        :description => "IP Adress of the Puppet Master",
+        :type        => :string,
+        :validation  => '^\d+\.\d+\.\d+\.\d+$',
+        :optional    => false,
+        :maxlength   => 15
+
+    input :hostname,
+        :prompt      => "Hostname",
+        :description => "Hostname of Puppet server",
+        :type        => :string,
+        :validation  => '^.+$',
+        :optional    => true,
+        :maxlength    => 256               
 end
 
 action "request_certificate", :description => "Send the CSR to the master" do

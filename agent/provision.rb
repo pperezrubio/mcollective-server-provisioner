@@ -26,13 +26,14 @@ module MCollective
 
                 begin
                     hosts = File.readlines("/etc/hosts")
+                    puppet_server = request[:hostname] || "puppet" 
+
 
                     File.open("/etc/hosts", "w") do |hosts_file|
                         hosts.each do |host|
                             hosts_file.puts host unless host =~ /puppet/
                         end
-
-                        hosts_file.puts "#{request[:ipaddress]}\tpuppet"
+                        hosts_file.puts "#{request[:ipaddress]}\t#{puppet_server}"
                     end
                 rescue Exception => e
                     fail "Could not add hosts entry: #{e}"
