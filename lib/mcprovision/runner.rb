@@ -99,6 +99,8 @@ module MCProvision
 
                 @master.sign(node_inventory[:facts]["fqdn"]) if @config.settings["steps"]["sign_node_csr"]
 
+                node.get_node_cert if @config.settings["steps"]["get_node_cert"]
+
                 node.cycle_puppet_run if @config.settings["steps"]["cycle_puppet_run"]
                 node.bootstrap if @config.settings["steps"]["puppet_bootstrap_stage"]
                 node.run_puppet if @config.settings["steps"]["puppet_final_run"]

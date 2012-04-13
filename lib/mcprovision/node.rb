@@ -59,6 +59,11 @@ module MCProvision
             request("request_certificate")
         end
 
+        def get_node_cert
+            MCProvision.info("Calling get_certificate")
+            request("get_certificate")
+        end
+
         # calls the bootstrap_puppet action to do initial puppet run
         def bootstrap
             MCProvision.info("Calling bootstrap_puppet")
