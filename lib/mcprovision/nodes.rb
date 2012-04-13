@@ -20,6 +20,7 @@ module MCProvision
 
         def setup
             @rpc = rpcclient(@agent)
+            @rpc.reset
             @rpc.filter = Util.parse_filter(@agent, @filter)
             @rpc.progress = false
         end
