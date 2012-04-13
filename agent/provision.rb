@@ -19,6 +19,7 @@ module MCollective
                 @puppetcert = config.pluginconf["provision.certfile"] || "/var/lib/puppet/ssl/certs/#{certname}.pem"
                 @lockfile = config.pluginconf["provision.lockfile"] || "/tmp/mcollective_provisioner_lock"
                 @puppetd = config.pluginconf["provision.puppetd"] || "/usr/sbin/puppetd"
+                @puppet = config.pluginconf["provision.puppet"] || "/usr/bin/puppet"
                 @fact_add = config.pluginconf["provision.fact_add"] || "/usr/bin/fact-add"
             end
 
@@ -56,6 +57,14 @@ module MCollective
             # does a run of puppet with --tags no_such_tag_here
             action "request_certificate" do
                 reply[:exitcode] = run("#{@puppetd} --test --tags no_such_tag_here --color=none --summarize", :stdout => :output, :stderr => :err, :chomp => true)
+                reply[:exitcode] = 0
+
+                # dont fail here if exitcode isnt 0, it'll always be non zero
+            end
+
+            # does a run of puppet with --tags no_such_tag_here
+            action "get_certificate" do
+                reply[:exitcode] = run("#{@puppet} agent --noop", :stdout => :output, :stderr => :err, :chomp => true)
                 reply[:exitcode] = 0
 
                 # dont fail here if exitcode isnt 0, it'll always be non zero

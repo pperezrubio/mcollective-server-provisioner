@@ -36,6 +36,17 @@ action "request_certificate", :description => "Send the CSR to the master" do
 	       :display_as  => "Exit Code"
 end
 
+action "get_certificate", :description => "Get the certificate from the master" do
+	output :output,
+	       :description => "Puppetd Output",
+	       :display_as  => "Output"
+
+	output :exitcode,
+	       :description => "Puppetd Exit Code",
+	       :display_as  => "Exit Code"
+end
+
+
 action "bootstrap_puppet", :description => "Runs the Puppet bootstrap environment" do
 	output :output,
 	       :description => "Puppetd Output",
