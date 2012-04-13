@@ -4,8 +4,9 @@ module MCProvision::Util
         result = MCollective::Util.empty_filter
 
         filter.split(" ").each do |f|
-            if f =~ /^(.+?)=(.+)/
-                result["fact"] << {:fact => $1, :value => $2}
+            if f =~ /^(.+?)(\!=|==)(.+)/
+	        MCProvision.info("Filters...")
+                result["fact"] << {:fact => $1, :value => $3, :operator => $2 }
             else
                 result["cf_class"] << f
             end
