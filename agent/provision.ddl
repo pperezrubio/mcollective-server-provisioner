@@ -137,6 +137,25 @@ action "start_puppet", :description => "Start puppet" do
 	       :display_as  => "Exit Code"
 end
 
+action "set_puppet_autostart", :description => "Start puppet" do
+  	input :start,
+          :prompt      => "Start value 'yes' or 'no'",
+          :description => "Start",
+          :type        => :string,
+          :validation  => '.',
+          :optional    => false,
+          :maxlength   => 10
+
+	output :output,
+	       :description => "set_puppet_autostart Output",
+	       :display_as  => "Output"
+
+	output :exitcode,
+	       :description => "set_puppet_autostart exit Code",
+	       :display_as  => "Exit Code"
+end
+
+
 action "fact_mod", :description => "Fact Mod" do
   	input :fact,
           :prompt      => "Fact",

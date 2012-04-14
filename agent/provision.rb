@@ -70,6 +70,16 @@ module MCollective
                 # dont fail here if exitcode isnt 0, it'll always be non zero
             end
 
+            action "set_puppet_autostart" do
+                #validate :start
+
+                begin
+                    reply[:exitcode] = run("/bin/sed -i 's/START=.\\+/START=#{request[:start]}/' /etc/default/puppet", :stdout => :output, :stderr => :err, :chomp => true)
+                rescue Exception => e
+                    fail "Could not edit /etc/default/puppet: #{e}"
+                end
+            end
+
             # does a run of puppet with --environment bootstrap or similar
             action "bootstrap_puppet" do
                 reply[:exitcode] = run("#{@puppetd} --test --environment bootstrap --color=none --summarize", :stdout => :output, :stderr => :err, :chomp => true)
