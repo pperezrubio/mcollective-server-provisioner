@@ -64,7 +64,7 @@ module MCollective
 
             # does a run of puppet with --tags no_such_tag_here
             action "get_certificate" do
-                reply[:exitcode] = run("#{@puppet} agent --noop", :stdout => :output, :stderr => :err, :chomp => true)
+                reply[:exitcode] = run("#{@puppet} agent --noop --no-daemonize --onetime", :stdout => :output, :stderr => :err, :chomp => true)
                 reply[:exitcode] = 0
 
                 # dont fail here if exitcode isnt 0, it'll always be non zero
