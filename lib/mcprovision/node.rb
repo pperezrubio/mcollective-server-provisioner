@@ -53,6 +53,11 @@ module MCProvision
             request("set_puppet_host", {:ipaddress => ipaddress})
         end
 
+        def set_puppet_autostart(value)
+            MCProvision.info("Calling set_puppet_autostart with value #{value}")
+            request("set_puppet_autostart", {:start => value})
+        end
+
         # calls the request_certificate action on the node being provisioned
         def send_csr
             MCProvision.info("Calling request_certificate")
@@ -167,6 +172,7 @@ module MCProvision
             @node = rpcclient(@agent)
             @node.identity_filter @hostname
             @node.progress = false
+            @node.timeout = 10
             #MCProvision.info(@node.options.pretty_inspect)
         end
     end

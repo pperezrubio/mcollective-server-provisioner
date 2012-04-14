@@ -101,13 +101,15 @@ module MCProvision
 
                 node.get_node_cert if @config.settings["steps"]["get_node_cert"]
 
+                node.set_puppet_autostart("yes") if @config.settings["steps"]["set_puppet_autostart"]
+
+                node.fact_mod("provision-status","provisioned") if @config.settings["steps"]["set_role_provisioned"]
+
                 node.cycle_puppet_run if @config.settings["steps"]["cycle_puppet_run"]
                 node.bootstrap if @config.settings["steps"]["puppet_bootstrap_stage"]
                 node.run_puppet if @config.settings["steps"]["puppet_final_run"]
 
                 node.start_puppet if @config.settings["steps"]["start_puppet"]
-
-                node.fact_mod("provision-status","provisioned") if @config.settings["steps"]["set_role_provisioned"]
 
                 node.unlock if @config.settings["steps"]["unlock"]
                 MCProvision.info("Node #{node.hostname} provisioned")
