@@ -172,7 +172,7 @@ module MCProvision
             @node = rpcclient(@agent)
             @node.identity_filter @hostname
             @node.progress = false
-            @node.timeout = 10
+            @node.timeout = 300
             #MCProvision.info(@node.options.pretty_inspect)
         end
     end
