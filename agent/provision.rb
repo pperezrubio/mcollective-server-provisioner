@@ -1,14 +1,6 @@
 module MCollective
     module Agent
         class Provision<RPC::Agent
-            metadata :name => "Server Provisioning Agent",
-                     :description => "Agent to assist in provisioning new servers",
-                     :author => "R.I.Pienaar",
-                     :license => "Apache 2.0",
-                     :version => "2.0",
-                     :url => "http://www.devco.net/",
-                     :timeout => 60
-
 
             def startup_hook
                 config = Config.instance
