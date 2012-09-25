@@ -24,7 +24,7 @@ module MCProvision
             MCProvision.info("Signing certificate #{certname} on all masters")
 
             @puppetca.list.each do |list|
-                if list[:data][:requests].include?(certname)
+                if list[:data][:requests] and list[:data][:requests].include?(certname)
                     @puppetca.sign(:certname => certname)
 
                     return
