@@ -44,7 +44,8 @@ module MCollective
 
             # Adds a new fact
             action "fact_mod" do
-                validate :fact, :value
+                validate :fact, String
+                validate :value, String
 
                 reply[:exitcode] = run("#{@fact_add} #{request[:fact]} #{request[:value]}", :stdout => :output, :stderr => :err, :chomp => true)
 

@@ -165,7 +165,7 @@ action "fact_mod", :description => "Fact Mod" do
           :optional    => false,
           :maxlength   => 90
 
-    input :value,
+        input :value,
           :prompt      => "Value",
           :description => "Value Name",
           :type        => :string,
