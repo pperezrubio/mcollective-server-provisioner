@@ -157,12 +157,15 @@ module MCProvision
         def fetch_inventory
             result = {}
 
-            # Does a MC::Client request to the main discovery agent, we should use the
-            # rpcutil agent for this
-            @node.client.req("inventory", "discovery", @node.client.options, 1) do |resp|
-                result[:agents] = resp[:body][:agents]
-                result[:facts] = resp[:body][:facts]
-                result[:classes] = resp[:body][:classes]
+            client = rpcclient("rpcutil")
+            client.identity_filter @hostname
+            client.progress = false
+            client.timeout = 30
+
+            client.custom_request("inventory", {}, [@hostname], {"identity" => @hostname}).each do |resp|
+                result[:agents] = resp[:data][:agents]
+                result[:facts] = resp[:data][:facts]
+                result[:classes] = resp[:data][:classes]
             end
 
             result
